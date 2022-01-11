@@ -26,18 +26,18 @@ package com.googlecode.jthaipdf.jasperreports.engine.export;
 import java.util.Locale;
 import java.util.Map;
 
+import com.googlecode.jthaipdf.util.ThaiDisplayUtils;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 
-import com.googlecode.jthaipdf.itext.ThaiChunk;
-import com.lowagie.text.Chunk;
+import net.sf.jasperreports.export.pdf.PdfTextChunk;
 
 
 public class ThaiJRPdfExporter extends JRPdfExporter {
-
 	
 	@SuppressWarnings("rawtypes")
 	@Override
-	protected Chunk getChunk(Map attributes, String text, Locale locale) {
-		return new ThaiChunk(super.getChunk(attributes, text, locale));
+	protected PdfTextChunk getChunk(Map attributes, String text, Locale locale) {
+		String thaiContent = ThaiDisplayUtils.toDisplayString(text);
+		return super.getChunk(attributes, thaiContent, locale);
 	}
 }

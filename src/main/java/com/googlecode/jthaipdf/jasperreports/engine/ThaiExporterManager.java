@@ -31,6 +31,8 @@ import com.googlecode.jthaipdf.jasperreports.engine.export.ThaiJRPdfExporter;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 
 
 public class ThaiExporterManager {
@@ -41,13 +43,12 @@ public class ThaiExporterManager {
 		exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, fileName);
 
 		exporter.exportReport();
-
 	}
 
-	public static void exportReportToPdfStream(JasperPrint jasperPrint, OutputStream out) throws JRException {
+	public static void exportReportToPdfStream(JasperPrint jasperPrint, OutputStream outputStream) throws JRException {
 		ThaiJRPdfExporter exporter = new ThaiJRPdfExporter();
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+		exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+		exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
 
 		exporter.exportReport();
 	}
